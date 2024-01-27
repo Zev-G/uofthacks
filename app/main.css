@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+body {
+    background: rgb(2,0,36);
+    background: linear-gradient(to bottom right, #6868AC, #6868AC);
+}
+
+.title_text {
+    font-family: 'Press Start 2P';
+    font-size: 5vw;
+    position: relative;
+    color: #F9f1cc;
+    text-shadow: -2px 2px 0 #FFB650,
+                    -4px 4px 0 #FF80BF,
+                    -6px 6px 0 #6868AC;
+    transform: skewX(-10deg);
+    transition: all 0.5s ease;
+    z-index: 2;
+}
+
+.retro_button {
+    font-family: monospace;
+    padding: 10px 20px;
+    font-size: 18px;
+    color: #ffffff;
+    background: linear-gradient(to right, #ff7e5f, #feb47b);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-transform: lowercase;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    outline: #ffffff
+}
+
+.retro_button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.retro_button:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.file_upload {
+    width: 50vw;
+
+}
+
+.title_with_icon {
+    position: relative;
+    display: inline-flex;
+    align-items: baseline;
+}
+
+.info_icon {
+    position: absolute;
+    top: 0;
+    right: -20px; 
+    background: none;
+    border: none;
+    font-size: 0.5em; 
+    cursor: pointer;
+    color: #fff; 
+}
+
+.info_icon:hover {
+    color: #FFB650;
+    text-shadow: none;
+}
+
+.modal_content {
+    background: #fff;
+    color: #000;
+}
+
+.modal_background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+
+.modal_content {
+    background: #6868AC;
+    color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    max-width: 600px;
+    text-align: center;
+    position: relative;
+}
+
+.modal_content > button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border: none;
+    background: none;
+    font-size: 1.2em;
+    cursor: pointer;
+    color: #000;
+}
+
+.modal_content h2 {
+    margin-bottom: 1em;
+    color: #000;
+}

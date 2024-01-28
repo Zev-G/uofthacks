@@ -6,7 +6,7 @@ import GroupChatSegment from "@/components/GroupChatSegment";
 import useChat from "../hooks/useChat";
 import SquiggleVisionSvg from "@/components/SquiggleVisionSvg";
 
-import ReactWordcloud, { Word } from "react-wordcloud";
+import ReactWordCloud, { Word } from "react-wordcloud";
 import { RefObject, useRef, useState } from "react";
 import { IoPerson } from "react-icons/io5";
 import { FaMessage } from "react-icons/fa6";
@@ -20,21 +20,18 @@ import { TbRosetteNumber5 } from "react-icons/tb";
 import { FaShareFromSquare } from "react-icons/fa6";
 import { redirect } from "next/navigation";
 import RetroButton from "@/components/RetroButton";
-import html2canvas from 'html2canvas';
+import html2canvas from "html2canvas";
 
 export default function Wrapped() {
     const { groupChat } = useChat();
-    
+
     if (!groupChat) {
         redirect("/");
     }
 
     const topFive = groupChat!.topNAuthors(5);
-    const virgins = groupChat!.topSetOfWordsByN(new Set(["gay"]), 5);
 
     const words = groupChat!.topNWords(100);
-
-    console.log(words)
 
     const [arrowIsDownBad, setArrowIsDownBad] = useState(false);
     const buttonContent = arrowIsDownBad ? <FaAngleDoubleDown /> : "Start!";
@@ -79,24 +76,48 @@ export default function Wrapped() {
         const section = sections[curSection].current;
 
         if (section) {
-            const canvas = await html2canvas(section, { useCORS: true, backgroundColor: '#503c3c' });
-            
+            const canvas = await html2canvas(section, {
+                useCORS: true,
+                backgroundColor: "#503c3c",
+            });
+
             canvas.toBlob(async (blob) => {
                 if (blob && navigator.share) {
-                    const file = new File([blob], 'screenshot.png', { type: 'image/png' });
+                    const file = new File([blob], "screenshot.png", { type: "image/png" });
                     try {
                         await navigator.share({
-                            title: 'Share Screenshot',
-                            text: 'Check out this screenshot.',
+                            title: "Share Screenshot",
+                            text: "Check out this screenshot.",
                             files: [file],
                         });
                     } catch (error) {
-                        console.error('Sharing failed', error);
+                        console.error("Sharing failed", error);
                     }
                 }
             });
         }
     };
+
+    const callbacks = {
+        onWordClick: console.log,
+        onWordMouseOver: console.log,
+        getWordTooltip: word => word.text
+    }
+    const options = {
+        colors: ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b"],
+        enableTooltip: true,
+        deterministic: false,
+        fontFamily: "times",
+        fontSizes: [5, 60],
+        fontStyle: "normal",
+        fontWeight: "normal",
+        rotations: 3,
+        rotationAngles: [0, 0],
+        scale: "sqrt",
+        spiral: "archimedean",
+        transitionDuration: 1000
+    };
+    const size = [800, 400];
 
     return (
         <main className="flex flex-col items-center">
@@ -158,14 +179,14 @@ export default function Wrapped() {
                     <div className="text-sm w-1/2 max-h-10 flex flex-col gap-y-10">
                         <GroupChatSegment
                             groupChat={groupChat}
-                            title={groupChat.name + "'s first conversation"}
+                            title={groupChat.name + "'s memorable moment"}
                             start={110 - 10}
                             end={110 + 10}
                             showSave={true}
                         />
                         <GroupChatSegment
                             groupChat={groupChat}
-                            title={groupChat.name + "'s first conversation"}
+                            title={groupChat.name + "'s memorable moment"}
                             start={210 - 10}
                             end={210 + 10}
                             showSave={true}
@@ -228,65 +249,15 @@ export default function Wrapped() {
                         <h1 className="text-6xl pt-20 font-serif retro-text">Top words</h1>
                         <div className="w-full border-4 opacity-70 border-white squigglevision"></div>
                     </div>
-                    <div className="w-1/2 h-2/3 pb-10">
-                        <ReactWordcloud words={words} />
-                    </div>
-                </div>
-
-                <div
-                    ref={sections[3]}
-                    className="w-screen h-[100vh] flex flex-col items-center gap-y-10"
-                >
-                    <div>
-                        <h1 className="text-6xl pt-20 font-serif retro-text">Top Virgins</h1>
-                        <div className="w-full border-4 opacity-70 border-white squigglevision"></div>
-                    </div>
-                    <div className="flex flex-col gap-y-5 text-sm w-1/2 max-h-10">
-                        <div className="flex p-4 text-xl gap-x-2 justify-between bg-orange-100 retro-shadow-orange text-black rounded">
-                            <div className="flex gap-x-2 items-center">
-                                <TbRosetteNumber1 className="" />
-                                {virgins[0].person.name}
-                            </div>
-                            <span className="text-zinc-600">{topFive[0].count}</span>
-                        </div>
-                        <div className="flex p-4 text-xl gap-x-2 justify-between bg-orange-100 retro-shadow-red text-black rounded">
-                            <div className="flex gap-x-2 items-center">
-                                <TbRosetteNumber2 className="" />
-                                {virgins[1].person.name}
-                            </div>
-                            <span className="text-zinc-600">{topFive[1].count}</span>
-                        </div>
-                        <div className="flex p-4 text-xl gap-x-2 justify-between bg-orange-100 retro-shadow-red text-black rounded">
-                            <div className="flex gap-x-2 items-center">
-                                <TbRosetteNumber3 className="" />
-                                {virgins[2].person.name}
-                            </div>
-                            <span className="text-zinc-600">{topFive[2].count}</span>
-                        </div>
-                        <div className="flex p-4 text-xl gap-x-2 justify-between bg-orange-100 retro-shadow-blue text-black rounded">
-                            <div className="flex gap-x-2 items-center">
-                                <TbRosetteNumber4 className="" />
-                                {virgins[3].person.name}
-                            </div>
-                            <span className="text-zinc-600">{topFive[3].count}</span>
-                        </div>
-                        <div className="flex p-4 text-xl gap-x-2 justify-between bg-orange-100 retro-shadow-blue text-black rounded">
-                            <div className="flex gap-x-2 items-center">
-                                <TbRosetteNumber5 className="" />
-                                {virgins[4].person.name}
-                            </div>
-                            <span className="text-zinc-600">{topFive[4].count}</span>
-                        </div>
+                    <div className="w-2/3 h-1/2 pb-10 text-8xl" style={{height: 400, width: 600}}>
+                        <ReactWordCloud words={words} callbacks={callbacks} options={options} />
                     </div>
                 </div>
             </div>
 
-            <div className='flex gap-x-5 absolute start-container'>
-                <button
-                    className="start-button big-button"
-                    onClick={share}
-                >
-                    <FaShareFromSquare/>
+            <div className="flex gap-x-5 absolute start-container">
+                <button className="start-button big-button" onClick={share}>
+                    <FaShareFromSquare />
                 </button>
                 <button
                     className="start-button big-button"

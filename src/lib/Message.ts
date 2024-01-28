@@ -16,6 +16,7 @@ export default class Message<T extends MessageType> {
     public toJSON() {
         return {
             ...this,
+            person: this.author.toJSON(),
             date: this.date.getTime(),
         };
     }

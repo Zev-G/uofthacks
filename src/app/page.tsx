@@ -10,13 +10,15 @@ import useChat from "./hooks/useChat";
 import RetroButton from "@/components/RetroButton";
 import GuideModal from "@/components/GuideModal";
 import useUser from "./hooks/useUser";
+import { addChatData } from "@/lib/firebaseConfig";
+import Link from "next/link";
 
 export default function Home() {
     const [showGuide, setShowGuide] = useState<boolean>(false);
     const [shallRedirect, setShallRedirect] = useState<boolean>(false);
 
     const { setGroupChat } = useChat();
-    const { handleSignIn } = useUser();
+    const { handleSignIn, user } = useUser();
 
     const handleFileDrop = useCallback(
         (event: React.DragEvent<HTMLDivElement>) => {
@@ -29,13 +31,21 @@ export default function Home() {
                     const decoder = new TextDecoder("utf-8", { fatal: false, ignoreBOM: true });
                     const gc = GroupChat.fromExport<WhatsappGroup>(decoder.decode(content));
 
-                    setGroupChat(gc);
-                    setShallRedirect(true);
+                    if (user !== undefined) {
+                        addChatData(user.uid, gc.name, content).then(() => {
+                            console.log("added ");
+                            setGroupChat(gc);
+                            setShallRedirect(true);
+                        });
+                    } else {
+                        setGroupChat(gc);
+                        setShallRedirect(true);
+                    }
                 };
                 reader.readAsArrayBuffer(file);
             }
         },
-        [setGroupChat, setShallRedirect]
+        [setGroupChat, setShallRedirect, user]
     );
 
     const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
@@ -59,7 +69,7 @@ export default function Home() {
                         i
                     </div>
                 </div>
-                <h1 className="title_text retro-text">Wanalyzer</h1>
+                <h1 className="title_text retro-text">Once Upon a Chat</h1>
                 <div
                     className="w-2/3 h-36 border-2 border-black border-dashed opacity-30 rounded justify-center flex items-center text-gray-800 bg-gray-400"
                     onDrop={handleFileDrop}
@@ -69,7 +79,13 @@ export default function Home() {
                 </div>
             </div>
             <span className="mono pt-2 pb-4 opacity-50">or</span>
-            <RetroButton onClick={handleSignIn}>Login / Signup</RetroButton>
+            {user ? (
+                <Link href="/dashboard" className="big-button">
+                    Dashboard
+                </Link>
+            ) : (
+                <RetroButton onClick={handleSignIn}>Login / Signup</RetroButton>
+            )}
             {showGuide && <GuideModal setShowGuide={setShowGuide} />}
         </main>
     );

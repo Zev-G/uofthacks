@@ -33,7 +33,6 @@ export default function Home() {
 
                     if (user !== undefined) {
                         addChatData(user.uid, gc.name, content).then(() => {
-                            console.log("added ");
                             setGroupChat(gc);
                             setShallRedirect(true);
                         });

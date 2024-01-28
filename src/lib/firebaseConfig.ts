@@ -61,8 +61,6 @@ export async function getUserData(uid: string) {
         return GroupChat.fromExport<WhatsappGroup>(decoder.decode(chat.bucketData));
     });
 
-    console.log("gcs", gcs)
-
     return gcs;
 }
 

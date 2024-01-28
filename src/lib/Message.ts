@@ -1,10 +1,12 @@
-export default class Message<T extends MessageType> {
-    public date: Date;
-    public author: string;
-    public text: string;
-    public flags: string[];
+import Person from "./Person";
 
-    public constructor(date: Date, author: string, text: string, flags: string[]) {
+export default class Message<T extends MessageType> {
+    public readonly date: Date;
+    public readonly author: Person;
+    public readonly text: string;
+    public readonly flags: string[];
+
+    public constructor(date: Date, author: Person, text: string, flags: string[]) {
         this.date = date;
         this.author = author;
         this.text = text;

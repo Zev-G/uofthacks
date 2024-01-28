@@ -5,7 +5,7 @@ export default class GroupChat<T extends GroupType> {
     public messages: Message<T>[];
 
     public static fromExport<K extends GroupType>(exportString: string) {
-        console.log(expo    rtString)
+        console.log(exportString)
         const exportStringReplaced = exportString.replaceAll("~ ", "").replaceAll(" ", " ");
         let messages_raw: string[] = [];
         let unprocessed: string[] = exportStringReplaced.split(/(.*?)(\[[0-9]{4}-[0-9]{2}-[0-9]{2}, [0-9]{1,2}:[0-9]{2}:[0-9]{2}.{4})/);

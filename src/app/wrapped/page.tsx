@@ -101,7 +101,7 @@ export default function Wrapped() {
     const callbacks = {
         onWordClick: console.log,
         onWordMouseOver: console.log,
-        getWordTooltip: word => word.text
+        getWordTooltip: (word: any) => word.text
     }
     const options = {
         colors: ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b"],
@@ -250,7 +250,7 @@ export default function Wrapped() {
                         <div className="w-full border-4 opacity-70 border-white squigglevision"></div>
                     </div>
                     <div className="text-8xl wordcloud-wrapper">
-                        <ReactWordCloud words={words} callbacks={callbacks} options={options} />
+                        <ReactWordCloud words={words} callbacks={callbacks} options={options as any} />
                     </div>
                 </div>
             </div>

@@ -108,7 +108,7 @@ export default function Wrapped() {
         enableTooltip: true,
         deterministic: false,
         fontFamily: "times",
-        fontSizes: [5, 60],
+        fontSizes: [5, 120],
         fontStyle: "normal",
         fontWeight: "normal",
         rotations: 3,
@@ -180,15 +180,15 @@ export default function Wrapped() {
                         <GroupChatSegment
                             groupChat={groupChat}
                             title={groupChat.name + "'s memorable moment"}
-                            start={110 - 10}
-                            end={110 + 10}
+                            start={180 - 10}
+                            end={180 + 10}
                             showSave={true}
                         />
                         <GroupChatSegment
                             groupChat={groupChat}
                             title={groupChat.name + "'s memorable moment"}
-                            start={210 - 10}
-                            end={210 + 10}
+                            start={300 - 10}
+                            end={300 + 10}
                             showSave={true}
                         />
                     </div>
@@ -249,7 +249,7 @@ export default function Wrapped() {
                         <h1 className="text-6xl pt-20 font-serif retro-text">Top words</h1>
                         <div className="w-full border-4 opacity-70 border-white squigglevision"></div>
                     </div>
-                    <div className="w-2/3 h-1/2 pb-10 text-8xl" style={{height: 400, width: 600}}>
+                    <div className="text-8xl wordcloud-wrapper">
                         <ReactWordCloud words={words} callbacks={callbacks} options={options} />
                     </div>
                 </div>

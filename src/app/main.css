@@ -250,3 +250,10 @@
 .dropdown-item:hover {
     background-color: #f2f2f2;
 }
+
+.wordcloud-wrapper {
+    background-color: rgba(226, 232, 240, 50);
+    width: 20vw;
+    margin: 0;
+    padding: 0;
+}

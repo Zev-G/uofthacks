@@ -9,7 +9,7 @@ import Profile from "@/components/Profile";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-    title: "Once Upon A Chat",
+    title: "Once Upon a Chat",
     description: "Analyze your chat history",
 };
 
